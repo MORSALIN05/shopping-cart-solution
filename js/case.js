@@ -11,35 +11,45 @@ function updateCaseNumber(isIncrease) {
     const caseNumberString = caseNumberField.value;
     const previousCaseNumber = parseInt(caseNumberString);
     let newCaseNumber;
-    if (previousCaseNumber > 0) {
 
-        if (isIncrease === true) {
-            //let newCaseValue;
-            newCaseNumber = previousCaseNumber + 1;
-        }
-        else {
+    if (isIncrease === true) {
+        //let newCaseValue;
+        newCaseNumber = previousCaseNumber + 1;
+    }
+    else {
+        if (previousCaseNumber != 0) {
             newCaseNumber = previousCaseNumber - 1;
         }
-        //console.log(newCaseNumber);
-        caseNumberField.value = newCaseNumber;
-        return newCaseNumber;
+        else {
+            newCaseNumber = 0;
+        }
     }
+    //console.log(newCaseNumber);
+    caseNumberField.value = newCaseNumber;
+    return newCaseNumber;
 
+}
+function newCaseTotalPrice(newCaseNumber) {
+    const caseTotalPrice = newCaseNumber * 59;
+    const caseTotalElement = document.getElementById('case-unit-price');
+    caseTotalElement.innerText = caseTotalPrice;
 }
 
 document.getElementById('btn-case-plus').addEventListener('click', function () {
     const newCaseNumber = updateCaseNumber(true);
-    const caseTotalPrice = newCaseNumber * 59;
-    const caseTotalElement = document.getElementById('case-unit-price');
-    caseTotalElement.innerText = caseTotalPrice;
+    newCaseTotalPrice(newCaseNumber);
+
 })
 
 document.getElementById('btn-case-minus').addEventListener('click', function (isIncrease) {
     const newCaseNumber = updateCaseNumber(false);
-    const newCaseTotalElement = document.getElementById('case-unit-price')
-    const newCaseTotalValue = newCaseTotalElement.innerText;
-    const caseTotalPriceNew = parseInt(newCaseTotalValue) - 59;
+    newCaseTotalPrice(newCaseNumber);
     //const caseTotalElement = document.getElementById('case-unit-price');
-    newCaseTotalElement.innerText = caseTotalPriceNew;
+    //newCaseTotalElement.innerText = caseTotalPriceNew;
+
+})
+
+document.getElementById('btn-pcase-plus').addEventListener('click', function () {
+    const newPhoneCaseNumber = updateCaseNumber(isIncrease);
 
 })
